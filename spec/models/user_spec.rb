@@ -30,6 +30,11 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
+      it 'email@が含まれていないと登録ができない' do
+        @user.email = 'testmail'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
       it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
@@ -62,7 +67,6 @@ RSpec.describe User, type: :model do
         @user.password = 'パスワード123aaa'
         @user.password_confirmation = 'パスワード123aaa'
         @user.valid?
-        binding.pry
         expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
       end
       it 'last_nameが空では登録できない' do
