@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+
   def index
     @order = Order.new
     @item = Item.find(params[:item_id])
@@ -28,10 +30,6 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
-  end
-
-  def item_params
-    params.require(:item).permit(:item_name, :description, :category_id, :condition_id, :delivery_fee_id, :ship_from_id, :day_to_ship_id, :selling_price, :image).merge(user_id: current_user.id)
   end
 
 end
