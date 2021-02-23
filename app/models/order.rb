@@ -1,6 +1,3 @@
-# Formオブジェクト 購入情報(purchase_logクラス)と配送先(shipping_adressの属性)をまとめたFormから、それぞれのテーブルに情報を保存するクラス(先にそれぞれのクラス(モデル)を定義、作成)
-# バリデーションもまとめている(AcriveModel::Modelをインクルードすることで、ヘルパーメソッドの引数として扱えたり、バリデーションの機能が使えるようになる。)
-
 class Order
   include ActiveModel::Model
   attr_accessor :user_id,:item_id,:postal_code,:ship_from_id,:municipality,:block_number,:building_name,:phone_number, :token, :price
@@ -12,8 +9,8 @@ class Order
     validates :municipality
     validates :block_number
     validates :phone_number, format: { with: /\A[0-9]+\z/, message: "input only number" }
+    validates :phone_number, length: { maximum: 11, message: "input correctly" }
     validates :token
-    # validates :phone_number, digits_between:1,11, message: "input only number" 
   end
 
     validates :ship_from_id, numericality: { other_than: 1, message: "を選択してください" }

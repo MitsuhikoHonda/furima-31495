@@ -51,6 +51,12 @@ RSpec.describe Order, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number input only number")
       end
+      it 'phone numnberは11桁以上では投稿できない' do
+        @order.phone_number = '000123456789'
+        binding.pry
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone number input correctly")
+      end
       it 'ship_from選択せずに投稿できない' do
         @order.ship_from_id = 1
         @order.valid?
