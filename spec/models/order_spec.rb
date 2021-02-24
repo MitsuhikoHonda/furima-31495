@@ -54,22 +54,22 @@ RSpec.describe Order, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Block number can't be blank")
       end
-      it 'phone numnberが空では投稿できない' do
+      it 'phone numberが空では投稿できない' do
         @order.phone_number = ''
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone numnberが英数字金剛では投稿できない' do
+      it 'phone numberが英数字金剛では投稿できない' do
         @order.phone_number = '080aaa1234'
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number input only number")
       end
-      it 'phone numnberは半角数字以外では投稿できない' do
+      it 'phone numberは半角数字以外では投稿できない' do
         @order.phone_number = '１２３４５６７８９'
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number input only number")
       end
-      it 'phone numnberは11桁以上では投稿できない' do
+      it 'phone numberは11桁以上では投稿できない' do
         @order.phone_number = '000123456789'
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number input correctly")
