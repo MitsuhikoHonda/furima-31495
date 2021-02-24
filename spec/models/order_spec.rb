@@ -59,7 +59,7 @@ RSpec.describe Order, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone numberが英数字金剛では投稿できない' do
+      it 'phone numberが英数字混合では投稿できない' do
         @order.phone_number = '080aaa1234'
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number input only number")
