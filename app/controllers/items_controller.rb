@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update]
   before_action :set_item, only: [:edit, :show, :update]
 
   def index
@@ -27,8 +27,11 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
-
+  
   def update
+    if current_user.id != @item.user_id || @item.purchase_log.present?
+      redirect_to root_path
+    end
     if @item.update(item_params)
       redirect_to root_path
     else
